@@ -36,7 +36,16 @@ class OverlayService : Service() {
         if (Build.VERSION.SDK_INT >= 34)
             startForeground(1, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
         else startForeground(1, n)
+        enableFreeform()
         buildUi()
+    }
+
+    // Works once WRITE_SECURE_SETTINGS has been granted (adb pm grant); silently skipped otherwise.
+    private fun enableFreeform() {
+        try {
+            for (k in listOf("enable_freeform_support", "force_resizable_activities", "enable_non_resizable_multi_window"))
+                android.provider.Settings.Global.putInt(contentResolver, k, 1)
+        } catch (_: Throwable) {}
     }
 
     override fun onStartCommand(i: Intent?, f: Int, s: Int): Int {

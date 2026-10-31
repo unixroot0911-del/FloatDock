@@ -1,0 +1,10 @@
+<resources>
+    <style name="Theme.FloatDock" parent="android:Theme.DeviceDefault.Light.NoActionBar"/>
+    <style name="Theme.Transparent" parent="android:Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="Theme.Picker" parent="android:Theme.DeviceDefault.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

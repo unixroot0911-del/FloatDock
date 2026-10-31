@@ -1,5 +1,7 @@
 name: Build APK
 on: [push, workflow_dispatch]
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,3 +17,9 @@ jobs:
         with:
           name: FloatDock-apk
           path: app/build/outputs/apk/release/*.apk
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cp app/build/outputs/apk/release/*.apk FloatDock.apk
+          gh release create v1.0 FloatDock.apk --title "FloatDock" --notes "FloatDock APK" --repo ${{ github.repository }} || gh release upload v1.0 FloatDock.apk --clobber --repo ${{ github.repository }}
